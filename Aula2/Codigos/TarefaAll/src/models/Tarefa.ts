@@ -1,12 +1,16 @@
 export class Tarefa {
     nome: string;
     descricao: string;
-    concluir: boolean;
+    concluida: boolean;
 
     constructor ( nome: string, descricao: string) {
         this.nome = nome;
         this.descricao = descricao;
-        this.concluir =  false;
+        this.concluida =  false;
+    }
+
+    concluir() {
+        this.concluida = true;
     }
 
     public get() {
