@@ -9,6 +9,7 @@ const Home: React.FC = () => {
   function adicionar() {
     const nova = new Tarefa("Estudar", "POO no Ionic");
 
+    nova.concluir();
 
     setTarefa([...tarefa, nova]);
 
@@ -16,17 +17,11 @@ const Home: React.FC = () => {
     
     const alerta = nova.get();
 
-    //alert(alerta)
+    alert(alerta)
 
     console.log(tarefa)
   }
-
-  function concluir() {
-
-    
-
-  }
-
+  
   return (
     <IonPage>
       <IonContent>
