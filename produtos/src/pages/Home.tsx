@@ -4,41 +4,67 @@ import {
   IonContent,
   IonInput,
   IonPage,
-  IonTextarea,
 } from "@ionic/react";
 import "./Home.css";
-import { Produtos } from "../models/Produto";
+import { Produto } from "../models/Produto";
+
 
 const Home: React.FC = () => {
-  const [produto, setProduto] = useState<Produtos[]>([]);
+  const [produto, setProduto] = useState<Produto[]>([]);
+  
+  const [nome, setNome] = useState("");
+  const [preco, setPreco] = useState(0)
+  const [estoque, setEstoque] = useState(0)
 
   const cadastrar = () => {
-    const novoProduto = new Produtos("limpado de telas", 28);
+    const novoProduto = {
+      id: Date.now(),
+      nome: nome,
+      preco: preco,
+      estoque: estoque,
+    }
 
-    novoProduto.adicionarEstoque(9);
+    const novoProd = new Produto("nomr",10);
 
-    setProduto([...produto, novoProduto]);
+    setProduto([...produto, novoProd]);
 
-    const respond = novoProduto.get();
+    setNome("");
+    setPreco(0);
+    setEstoque(0);
+  
 
-    alert(respond);
+    const alert = novoProduto
 
-    console.log(novoProduto);
+    console.log(alert);
   };
-
+  
   return (
     <IonPage>
       <IonContent>
-        <IonTextarea
+      
+
+        <IonInput
           label="Nome do produto"
           labelPlacement="stacked"
           placeholder="Digite o nome do produto"
-        ></IonTextarea>
+          value={nome}
+          onChange={(e) => setNome(String(e.currentTarget.value ?? ""))}
+        ></IonInput>
 
         <IonInput
           label="Preço"
           type="number"
           placeholder="000"
+          value={preco}
+          onChange={(e) => setPreco(Number(e.currentTarget.value) || 0)}
+        ></IonInput>
+
+        <IonInput
+          label="Quantidade"
+          type="number"
+          placeholder="0"
+          value={estoque}
+          onChange={(e) => setEstoque(Number(e.currentTarget.value) || 0)}
         ></IonInput>
 
         <IonButton onClick={cadastrar}>Cadastrar produto</IonButton>
