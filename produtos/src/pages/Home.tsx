@@ -1,73 +1,40 @@
-import React, { useState } from "react";
-import {
-  IonButton,
-  IonContent,
-  IonInput,
-  IonPage,
-} from "@ionic/react";
-import "./Home.css";
-import { Produto } from "../models/Produto";
+import React from 'react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonInput, IonButton, IonNavLink, IonList, IonLabel, IonItem } from '@ionic/react';
+import './Home.css';
+import { Produto } from '../models/Produto';
+import { useHistory } from 'react-router';
+interface HomeProps { produtos: Produto[] }
 
+const Home: React.FC<HomeProps> = ({ produtos }) => {
+  const history = useHistory();
 
-const Home: React.FC = () => {
-  const [produto, setProduto] = useState<Produto[]>([]);
-  
-  const [nome, setNome] = useState("");
-  const [preco, setPreco] = useState(0)
-  const [estoque, setEstoque] = useState(0)
-
-  const cadastrar = () => {
-    const novoProduto = {
-      id: Date.now(),
-      nome: nome,
-      preco: preco,
-      estoque: estoque,
-    }
-
-    const novoProd = new Produto("nomr",10);
-
-    setProduto([...produto, novoProd]);
-
-    setNome("");
-    setPreco(0);
-    setEstoque(0);
-  
-
-    const alert = novoProduto
-
-    console.log(alert);
-  };
-  
+   function irCadastro(){
+    history.push('/cadastro');
+  }
   return (
     <IonPage>
-      <IonContent>
-      
+      <IonHeader>
+        <IonToolbar>
+          <IonTitle>Controle de Estoque</IonTitle>
+        </IonToolbar>
+      </IonHeader>
+      <IonContent className='ion-padding'>
+        <h2>Bem-vindo ao Controle de Estoque</h2>
 
-        <IonInput
-          label="Nome do produto"
-          labelPlacement="stacked"
-          placeholder="Digite o nome do produto"
-          value={nome}
-          onChange={(e) => setNome(String(e.currentTarget.value ?? ""))}
-        ></IonInput>
+        <IonButton onClick={irCadastro}> Cadastrar Produto</IonButton>
+         
+         <IonList>
+          {produtos.map((produto, index) => (
+            <IonItem key={index}>
+              <IonLabel>
+                {produto.nome} - R$ {produto.preco.toFixed(2)} | Estoque: {produto.estoque}
+              </IonLabel>
+              
+            </IonItem>
+              
+          ))}
 
-        <IonInput
-          label="Preço"
-          type="number"
-          placeholder="000"
-          value={preco}
-          onChange={(e) => setPreco(Number(e.currentTarget.value) || 0)}
-        ></IonInput>
-
-        <IonInput
-          label="Quantidade"
-          type="number"
-          placeholder="0"
-          value={estoque}
-          onChange={(e) => setEstoque(Number(e.currentTarget.value) || 0)}
-        ></IonInput>
-
-        <IonButton onClick={cadastrar}>Cadastrar produto</IonButton>
+         </IonList>
       </IonContent>
     </IonPage>
   );

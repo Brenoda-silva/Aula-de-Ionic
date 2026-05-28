@@ -1,11 +1,9 @@
 export class Produto {
-    id: number;
     nome: string;
     preco: number;
     estoque: number;
 
-    constructor(id: number, nome: string, preco: number) {
-        this.id = id;
+    constructor(nome: string, preco: number) {
         this.nome = nome;
         this.preco = preco;
         this.estoque = 0;
@@ -16,6 +14,6 @@ export class Produto {
     }
 
     get() {
-        return this.id, this.nome, this.preco, this.estoque
+        return this.nome, this.preco, this.estoque
     }
 }
