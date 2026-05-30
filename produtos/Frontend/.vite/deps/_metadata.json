@@ -1,0 +1,104 @@
+{
+  "hash": "a9d3a78a",
+  "configHash": "696c99bc",
+  "lockfileHash": "33e73e92",
+  "browserHash": "b6f8faea",
+  "optimized": {
+    "@ionic/react-router": {
+      "src": "../../node_modules/@ionic/react-router/dist/index.js",
+      "file": "@ionic_react-router.js",
+      "fileHash": "82ef1440",
+      "needsInterop": false
+    },
+    "@ionic/react": {
+      "src": "../../node_modules/@ionic/react/dist/index.js",
+      "file": "@ionic_react.js",
+      "fileHash": "7129d149",
+      "needsInterop": false
+    },
+    "react-dom/client": {
+      "src": "../../node_modules/react-dom/client.js",
+      "file": "react-dom_client.js",
+      "fileHash": "51490850",
+      "needsInterop": true
+    },
+    "react-router-dom": {
+      "src": "../../node_modules/react-router-dom/esm/react-router-dom.js",
+      "file": "react-router-dom.js",
+      "fileHash": "abfbb57a",
+      "needsInterop": false
+    },
+    "react-router": {
+      "src": "../../node_modules/react-router/esm/react-router.js",
+      "file": "react-router.js",
+      "fileHash": "3eb32bc5",
+      "needsInterop": false
+    },
+    "react": {
+      "src": "../../node_modules/react/index.js",
+      "file": "react.js",
+      "fileHash": "0a810368",
+      "needsInterop": true
+    },
+    "react/jsx-dev-runtime": {
+      "src": "../../node_modules/react/jsx-dev-runtime.js",
+      "file": "react_jsx-dev-runtime.js",
+      "fileHash": "8af0bc8c",
+      "needsInterop": true
+    }
+  },
+  "chunks": {
+    "dist-FhAQQxNt": {
+      "file": "dist-FhAQQxNt.js",
+      "isDynamicEntry": false
+    },
+    "p-9VcRUwdB-aos5Y4yN": {
+      "file": "p-9VcRUwdB-aos5Y4yN.js",
+      "isDynamicEntry": false
+    },
+    "p-BJoMtgfR-B4Kcr1bs": {
+      "file": "p-BJoMtgfR-B4Kcr1bs.js",
+      "isDynamicEntry": false
+    },
+    "p-BgwEQWW6-BJlkWE5k": {
+      "file": "p-BgwEQWW6-BJlkWE5k.js",
+      "isDynamicEntry": true
+    },
+    "p-CEmXdzGo-BLaBAY1U": {
+      "file": "p-CEmXdzGo-BLaBAY1U.js",
+      "isDynamicEntry": true
+    },
+    "p-CneGxKsZ-DOhyDzUd": {
+      "file": "p-CneGxKsZ-DOhyDzUd.js",
+      "isDynamicEntry": true
+    },
+    "p-Cz5nLPGT-CTqhYhna": {
+      "file": "p-Cz5nLPGT-CTqhYhna.js",
+      "isDynamicEntry": true
+    },
+    "p-D13Eaw-8-DtbfIbzt": {
+      "file": "p-D13Eaw-8-DtbfIbzt.js",
+      "isDynamicEntry": false
+    },
+    "p-DgbT0exM-BlR-mqzM": {
+      "file": "p-DgbT0exM-BlR-mqzM.js",
+      "isDynamicEntry": false
+    },
+    "p-ZjP4CjeZ-D1RiXws9": {
+      "file": "p-ZjP4CjeZ-D1RiXws9.js",
+      "isDynamicEntry": false
+    },
+    "react-STYzpwS0": {
+      "file": "react-STYzpwS0.js",
+      "isDynamicEntry": false
+    },
+    "react-dom-DUwVs3-b": {
+      "file": "react-dom-DUwVs3-b.js",
+      "isDynamicEntry": false
+    },
+    "react-router-BF3Q2Ke-": {
+      "file": "react-router-BF3Q2Ke-.js",
+      "isDynamicEntry": false
+    }
+  }
+}
