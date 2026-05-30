@@ -1,51 +1,65 @@
-import React, {useRef} from 'react';
+import React, { useState } from 'react';
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonInput, IonButton, useIonAlert } from '@ionic/react';
 import './Home.css';
 import { Produto } from '../models/Produto';
 import { useHistory } from 'react-router';
 
-interface CadastroProps { addProduto: (p: Produto) => void }
-
+interface CadastroProps {
+  addProduto: (p: Produto) => void;
+}
 
 const Cadastro: React.FC<CadastroProps> = ({ addProduto }) => {
-  const nomeRef = useRef<any>(null);
-  const precoRef = useRef<any>(null);
-  const estoqueRef = useRef<any>(null);
+  const [nome, setNome] = useState('');
+  const [preco, setPreco] = useState('');
+  const [estoque, setEstoque] = useState('0');
+  const [presentAlert] = useIonAlert();
   const history = useHistory();
 
-  const [presentAlert] = useIonAlert();
+  function validarCampos() {
+    const precoNumber = Number(preco);
+    const estoqueNumber = Number(estoque);
 
-  function adicionarProduto(){
-    const nome = nomeRef.current?.value || "";
-    const preco = parseFloat(precoRef.current?.value || "0");
-    const estoque = parseInt(estoqueRef.current?.value || "0");
-
-    if (nome && preco > 0) {
-      const novoProduto = new Produto(nome, preco);
-      novoProduto.adicionarEstoque(estoque);
-      addProduto(novoProduto);
-
-      
-
-      if (nomeRef.current) nomeRef.current.value = "";
-      if (precoRef.current) precoRef.current.value = "";
-      if (estoqueRef.current) estoqueRef.current.value = "";
-
-      presentAlert({
-        header: 'Sucesso',
-        message: 'Produto cadastrado com sucesso',
-        buttons: ['OK']
-      });
-    } else {
-      presentAlert({
-        header: 'Error',
-        message: 'Cadastre com dados válidos',
-        buttons: ['OK']
-      });
+    if (!nome.trim()) {
+      return 'O nome do produto é obrigatório.';
     }
+
+    if (Number.isNaN(precoNumber) || precoNumber <= 0) {
+      return 'O preço deve ser um número maior que zero.';
+    }
+
+    if (Number.isNaN(estoqueNumber) || estoqueNumber < 0) {
+      return 'O estoque deve ser um número inteiro maior ou igual a zero.';
+    }
+
+    return '';
   }
-  
-  function irHome(){
+
+  function adicionarProduto() {
+    const mensagemErro = validarCampos();
+    if (mensagemErro) {
+      presentAlert({
+        header: 'Erro',
+        message: mensagemErro,
+        buttons: ['OK'],
+      });
+      return;
+    }
+
+    const novoProduto = new Produto(nome.trim(), Number(preco), Number(estoque));
+    addProduto(novoProduto);
+
+    setNome('');
+    setPreco('');
+    setEstoque('0');
+
+    presentAlert({
+      header: 'Sucesso',
+      message: 'Produto cadastrado com sucesso.',
+      buttons: ['OK'],
+    });
+  }
+
+  function irHome() {
     history.push('/home');
   }
   return (
@@ -55,19 +69,47 @@ const Cadastro: React.FC<CadastroProps> = ({ addProduto }) => {
           <IonTitle>Controle de Estoque</IonTitle>
         </IonToolbar>
       </IonHeader>
-      <IonContent fullscreen>
-        <IonButton onClick={irHome}> Voltar para Home</IonButton>
-         <br />
-        <IonInput ref={nomeRef} label="Descrição do Produto" labelPlacement="floating" fill="outline" placeholder="Digite aqui"></IonInput> 
-      
-      <br />
+      <IonContent fullscreen className='ion-padding'>
+        <IonButton onClick={irHome}>Voltar para Home</IonButton>
 
-        <IonInput ref={precoRef} label="Preço" labelPlacement="floating" fill="outline" placeholder="Digite aqui"></IonInput>
-      <br />
+        <IonInput
+          value={nome}
+          label='Descrição do Produto'
+          labelPlacement='floating'
+          fill='outline'
+          placeholder='Digite aqui'
+          onIonChange={(e) => setNome(e.detail.value ?? '')}
+        />
 
-        <IonInput ref={estoqueRef} label="Estoque" labelPlacement="floating" fill="outline" placeholder="Digite aqui"></IonInput>
-      
-      <IonButton onClick={adicionarProduto}> Cadastrar Produto</IonButton>
+        <IonInput
+          value={preco}
+          type='number'
+          inputMode='decimal'
+          label='Preço'
+          labelPlacement='floating'
+          fill='outline'
+          placeholder='Digite aqui'
+          min={0}
+          step='0.01'
+          onIonChange={(e) => setPreco(e.detail.value ?? '')}
+        />
+
+        <IonInput
+          value={estoque}
+          type='number'
+          inputMode='numeric'
+          label='Estoque'
+          labelPlacement='floating'
+          fill='outline'
+          placeholder='Digite aqui'
+          min={0}
+          step='1'
+          onIonChange={(e) => setEstoque(e.detail.value ?? '')}
+        />
+
+        <IonButton expand='block' onClick={adicionarProduto}>
+          Cadastrar Produto
+        </IonButton>
       </IonContent>
     </IonPage>
   );
