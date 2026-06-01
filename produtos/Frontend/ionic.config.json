@@ -1,5 +1,5 @@
 {
   "name": "New Ionic App",
   "integrations": {},
-  "type": "react"
+  "type": "react-vite"
 }
