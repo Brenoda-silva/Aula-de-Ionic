@@ -1,10 +1,12 @@
 import express from "express";
 import fs from "fs";
+import cors from "cors"
 
 //const fs = require("fs");
 //const express = require("express");
 
 const app = express();
+app.use(cors());
 app.use(express.json());
 
 const arquivo = "produtos.json";

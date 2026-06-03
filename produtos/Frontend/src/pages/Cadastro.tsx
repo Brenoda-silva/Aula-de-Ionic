@@ -1,19 +1,21 @@
 import React, { useState } from 'react';
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonInput, IonButton, useIonAlert } from '@ionic/react';
 import './Home.css';
-import { Produto } from '../models/Produto';
+//import { Produto } from '../models/Produto';
 import { useHistory } from 'react-router';
+import { ProdutoService } from '../services/ProdutoService';
 
-interface CadastroProps {
+/*interface CadastroProps {
   addProduto: (p: Produto) => void;
-}
+}*/
 
-const Cadastro: React.FC<CadastroProps> = ({ addProduto }) => {
+const Cadastro: React.FC = () => {
   const [nome, setNome] = useState('');
   const [preco, setPreco] = useState('');
   const [estoque, setEstoque] = useState('0');
   const [presentAlert] = useIonAlert();
   const history = useHistory();
+  const service = new ProdutoService();
 
   function validarCampos() {
     const precoNumber = Number(preco);
@@ -34,7 +36,8 @@ const Cadastro: React.FC<CadastroProps> = ({ addProduto }) => {
     return '';
   }
 
-  function adicionarProduto() {
+   async function adicionar() {
+
     const mensagemErro = validarCampos();
     if (mensagemErro) {
       presentAlert({
@@ -45,12 +48,15 @@ const Cadastro: React.FC<CadastroProps> = ({ addProduto }) => {
       return;
     }
 
-    const novoProduto = new Produto(nome.trim(), Number(preco), Number(estoque));
-    addProduto(novoProduto);
+    const produto = {
+      nome,
+      preco,
+      estoque: 0
+    };
 
-    setNome('');
-    setPreco('');
-    setEstoque('0');
+    await service.adicionar(produto);
+
+    history.goBack();
 
     presentAlert({
       header: 'Sucesso',
@@ -107,7 +113,7 @@ const Cadastro: React.FC<CadastroProps> = ({ addProduto }) => {
           onIonChange={(e) => setEstoque(e.detail.value ?? '')}
         />
 
-        <IonButton expand='block' onClick={adicionarProduto}>
+        <IonButton expand='block' onClick={adicionar}>
           Cadastrar Produto
         </IonButton>
       </IonContent>
