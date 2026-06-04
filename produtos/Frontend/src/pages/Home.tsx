@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonButton, IonList, IonLabel, IonItem } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonButton, IonList, IonLabel, IonItem, IonIcon } from '@ionic/react';
+import { trashOutline } from 'ionicons/icons';
 import './Home.css';
 //import { Produto } from '../models/Produto';
 import { useHistory } from 'react-router';
@@ -29,6 +30,11 @@ const Home: React.FC = () => {
     setProdutos(dados)
   }
 
+  async function excluir(id: number) {
+    await service.remover(id);
+    carregar();
+  }
+
   return (
     <IonPage>
       <IonHeader>
@@ -48,10 +54,14 @@ const Home: React.FC = () => {
                 <IonLabel>
                   {p.nome} - R$ {p.preco} | Estoque: {p.estoque}
                 </IonLabel>
+
+                <IonButton onClick={() => excluir(p.id)} color={'danger'}><IonIcon icon={trashOutline}></IonIcon></IonButton>
           
               </IonItem>
             ))}
           </IonList>
+
+          
        
       </IonContent>
     </IonPage>

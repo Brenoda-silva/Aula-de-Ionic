@@ -51,7 +51,7 @@ const Cadastro: React.FC = () => {
     const produto = {
       nome,
       preco,
-      estoque: 0
+      estoque
     };
 
     await service.adicionar(produto);
