@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonButton, IonList, IonLabel, IonItem, IonIcon } from '@ionic/react';
+import React, { useState } from 'react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonButton, IonList, IonLabel, IonItem, IonIcon, useIonViewDidEnter } from '@ionic/react';
 import { trashOutline } from 'ionicons/icons';
 import './Home.css';
 //import { Produto } from '../models/Produto';
@@ -21,7 +21,7 @@ const Home: React.FC = () => {
   const [ produtos, setProdutos] = useState([]);
   const service = new ProdutoService();
 
-  useEffect(() => {
+  useIonViewDidEnter(() => {
     carregar();
   }, [])
 
