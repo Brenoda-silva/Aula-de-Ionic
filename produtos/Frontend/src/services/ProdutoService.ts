@@ -2,7 +2,7 @@
 
 export class ProdutoService {
 
-    baseUrl = "http://localhost:3000/produtos";
+    baseUrl = "http://localhost:3000";
 
     //private chave = "produtos";
 
