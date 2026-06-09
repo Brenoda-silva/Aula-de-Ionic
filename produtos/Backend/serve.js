@@ -35,7 +35,7 @@ app.post("/produtos", (req, res) => {
 });
 
 app.put("/produtos/:id", (req, res) => {
-    const dados = fs.readdirSync(arquivo);
+    const dados = fs.readFileSync(arquivo);
     let produtos = JSON.parse(dados);
 
     produtos = produtos.map(p =>
@@ -45,6 +45,18 @@ app.put("/produtos/:id", (req, res) => {
     fs.writeFileSync(arquivo, JSON.stringify(produtos, null, 2));
 
     res.json({ msg: "Atualizado "});
+});
+
+app.get("/produtos/:id", (req, res) => {
+    const dados = fs.readFileSync(arquivo);
+    const produtos = JSON.parse(dados);
+    const produto = produtos.find((p) => p.id == req.params.id);
+
+    if (!produto) {
+        return res.status(404).json({ msg: "Produto não encontrado." });
+    }
+
+    res.json(produto);
 });
 
 app.delete("/produtos/:id", (req, res) => {

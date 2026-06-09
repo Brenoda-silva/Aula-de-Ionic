@@ -16,9 +16,22 @@ export class ProdutoService {
         return await res.json();
     }
 
+    async buscar(id: number) {
+        const res = await fetch(`${this.baseUrl}/produtos/${id}`);
+        return await res.json();
+    }
+
     async adicionar(produto: any) {
         await fetch(`${this.baseUrl}/produtos`, {
             method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(produto)
+        });
+    }
+
+    async atualizar(id: number, produto: any) {
+        await fetch(`${this.baseUrl}/produtos/${id}`, {
+            method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(produto)
         });
@@ -29,4 +42,4 @@ export class ProdutoService {
             method: 'DELETE'
         });
     }
-}
+} 
