@@ -1,18 +1,18 @@
 export interface IProduto {
-    id: string;
+    id: number;
     nome: string;
     preco: number;
     estoque: number;
 }
 
 export class Produto implements IProduto {
-    id: string;
+    id: number;
     nome: string;
     preco: number;
     estoque: number;
 
-    constructor(nome: string, preco: number, estoque = 0, id?: string) {
-        this.id = id ?? (typeof crypto !== 'undefined' && 'randomUUID' in crypto ? crypto.randomUUID() : String(Date.now()));
+    constructor(nome: string, preco: number, estoque = 0, id: number) {
+        this.id = id ;
         this.nome = nome;
         this.preco = preco;
         this.estoque = estoque;
