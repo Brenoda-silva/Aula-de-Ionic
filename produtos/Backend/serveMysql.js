@@ -6,6 +6,15 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
+    res.header("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Requested-With");
+    if (req.method === "OPTIONS") return res.sendStatus(204);
+    next();
+});
+
+
 const db = mysql.createConnection({
     host: 'localhost',
     user: 'root',
@@ -23,15 +32,14 @@ db.connect((err) => {
 
 const PORT = 3000;
 
-app.get('/produtos', (req, res) => {
-    db.query('SELECT * FROM produtos', (err, results) => {
-        if (err) {
-            console.error('Erro ao buscar produtos:', err.message);
-            return res.status(500).json({ error: 'Erro ao buscar produtos' });
-        }
-        res.json(results);
+app.get('/produtos/:id', (req, res) => {
+    db.query('SELECT * FROM produtos WHERE id = ?', [req.params.id], (err, results) => {
+        if (err) return res.status(500).json({ error: err.message });
+        if (results.length === 0) return res.status(404).json({ error: 'Produto não encontrado' });
+        res.json(results[0]);
     });
 });
+
 
 app.post('/produtos', (req, res) => {
     const novoProduto = {
@@ -52,29 +60,17 @@ app.post('/produtos', (req, res) => {
 });
 
 app.put('/produtos/:id', (req, res) => {
-    const { id } = req.params;
-    const atualizarProduto = req.body;
+    const { nome, preco, estoque } = req.body;
+    const { id } = req.params; // ← estava faltando
 
     db.query(
-        'UPDATE produtos SET ? WHERE id = ?',
-        [atualizarProduto, id],
+        'UPDATE produtos SET nome = ?, preco = ?, estoque = ? WHERE id = ?',
+        [nome, preco, estoque, id], // ← parâmetros que estavam faltando
         (err, result) => {
-            if (err) {
-                return res.status(500).json({
-                    erro: err.message
-                });
-            }
+            if (err) return res.status(500).json({ erro: err.message });
+            if (result.affectedRows === 0) return res.status(404).json({ erro: 'Produto não encontrado' });
 
-            if (result.affectedRows === 0) {
-                return res.status(404).json({
-                    erro: 'Produto não encontrado'
-                });
-            }
-
-            res.json({
-                id,
-                ...atualizarProduto
-            });
+            res.json({ id, nome, preco, estoque }); // ← variáveis corretas
         }
     );
 });

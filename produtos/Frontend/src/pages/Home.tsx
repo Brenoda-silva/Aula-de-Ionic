@@ -48,9 +48,9 @@ const Home: React.FC = () => {
     carregar();
   }
 
-  function editar(id: number) {
+  async function editar(id: number) {
     history.push(`/cadastro/${id}`);
-  }
+}
 
   return (
     <IonPage>
