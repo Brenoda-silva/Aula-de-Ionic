@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonButton, IonList, IonLabel, IonItem, IonIcon, IonAlert, useIonViewDidEnter } from '@ionic/react';
-import { trashOutline } from 'ionicons/icons';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonButton, IonList, IonLabel, IonItem, useIonViewDidEnter } from '@ionic/react';
+
 import './Home.css';
-//import { Produto } from '../models/Produto';
+//import { Produtos } from '../models/Produto';
 import { useHistory } from 'react-router';
 import { ProdutoService } from '../services/ProdutoService';
-
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import ButtonExcluir from '../components/buttonExcluir';
 /*interface HomeProps {
   produtos: Produto[];
   onRemove: (id: string) => void;
@@ -19,8 +20,7 @@ const Home: React.FC = () => {
   }
 
   const [produtos, setProdutos] = useState<any[]>([]);
-  const [showConfirmDelete, setShowConfirmDelete] = useState(false);
-  const [deleteId, setDeleteId] = useState<number | null>(null);
+
   const service = new ProdutoService();
 
   useIonViewDidEnter(() => {
@@ -32,21 +32,7 @@ const Home: React.FC = () => {
     setProdutos(dados)
   }
 
-  function confirmarExcluir(id: number) {
-    setDeleteId(id);
-    setShowConfirmDelete(true);
-  }
-
-  async function excluir() {
-    if (deleteId === null) {
-      return;
-    }
-
-    await service.remover(deleteId);
-    setShowConfirmDelete(false);
-    setDeleteId(null);
-    carregar();
-  }
+ 
 
   async function editar(id: number) {
     history.push(`/cadastro/${id}`);
@@ -75,31 +61,13 @@ const Home: React.FC = () => {
               <IonButton fill="clear" color="primary" onClick={() => editar(p.id)}>
                 Editar
               </IonButton>
-              <IonButton fill="clear" color="danger" onClick={() => confirmarExcluir(p.id)}>
-                <IonIcon slot="icon-only" icon={trashOutline}></IonIcon>
-              </IonButton>
+              
+              <ButtonExcluir id={p.id} onExcluido={(carregar)} />
             </IonItem>
           ))}
         </IonList>
 
-        <IonAlert
-          isOpen={showConfirmDelete}
-          header="Confirmar exclusão"
-          message="Tem certeza que deseja excluir este produto?"
-          buttons={[
-            {
-              text: 'Cancelar',
-              role: 'cancel',
-              handler: () => setShowConfirmDelete(false),
-            },
-            {
-              text: 'Excluir',
-              role: 'destructive',
-              handler: excluir,
-            },
-          ]}
-          onDidDismiss={() => setShowConfirmDelete(false)}
-        />
+        
 
        
       </IonContent>

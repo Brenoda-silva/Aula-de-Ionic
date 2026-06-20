@@ -32,6 +32,14 @@ db.connect((err) => {
 
 const PORT = 3000;
 
+
+app.get('/produtos', (req, res) => {
+    db.query('SELECT * FROM produtos', (err, results) => {
+        if (err) return res.status(500).json({ error: err.message });
+        res.json(results);
+    });
+});
+
 app.get('/produtos/:id', (req, res) => {
     db.query('SELECT * FROM produtos WHERE id = ?', [req.params.id], (err, results) => {
         if (err) return res.status(500).json({ error: err.message });
