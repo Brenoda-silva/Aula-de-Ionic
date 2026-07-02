@@ -1,8 +1,17 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import ExploreContainer from '../components/ExploreContainer';
 import './Home.css';
 
+import { useEffect } from 'react';
+
 const Home: React.FC = () => {
+  useEffect(() => {
+
+    fetch("https://viacep.com.br/ws/48690000/json/")
+      .then(res => res.json())
+      .then(data => {
+        console.log(data);
+      });
+  }, []);
   return (
     <IonPage>
       <IonHeader>
@@ -16,7 +25,9 @@ const Home: React.FC = () => {
             <IonTitle size="large">Blank</IonTitle>
           </IonToolbar>
         </IonHeader>
-        <ExploreContainer />
+        <div>
+          <h1>Consultar CEP</h1>
+        </div>
       </IonContent>
     </IonPage>
   );
