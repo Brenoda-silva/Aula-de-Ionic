@@ -1,0 +1,7 @@
+{
+  "name": "webServices",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react-vite"
+}
