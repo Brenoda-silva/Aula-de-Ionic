@@ -1,5 +1,5 @@
 import { IonContent, IonPage, IonInput, IonButton, IonList, IonItem, IonLabel } from '@ionic/react';
-import {  useState } from 'react';
+import { useEffect, useState } from 'react';
 // import './Home.css';
 
 
@@ -8,12 +8,15 @@ const ConsultaCep: React.FC = () => {
     const [localidade, setLocalidade] = useState("");
     const [estado, setEstado] = useState("");
     const [cep, setCep] = useState("");
+    const [loading, setLoading] = useState(false);
 
+  
 
     async function handleConsultarCep() {
         
         try {
-            const raw = cep;   
+            const raw = cep; 
+            setLoading(true)  
             const resposta = await fetch(`https://viacep.com.br/ws/${raw}/json/`)
 
             const data = await resposta.json();
@@ -24,15 +27,17 @@ const ConsultaCep: React.FC = () => {
             console.log(data)
     } catch (error) {
         console.error("Cep Invalido", error)
-    }
+    }finally {
+        setLoading(false)
     }
 
+    } 
     return (
         <IonPage>
             <IonContent fullscreen>
                 <label>CEP</label>
                 <IonInput aria-label="CEP" value={cep} onChange={(e) => setCep((e.target as HTMLInputElement).value)}></IonInput>
-                <IonButton onClick={handleConsultarCep}>Consultar</IonButton>
+                <IonButton onClick={handleConsultarCep} disabled={loading}>{loading? "Buscando..." : "Buscar"}</IonButton>
 
                 <IonList>
                     <IonItem>
