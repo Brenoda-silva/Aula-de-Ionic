@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 const Home: React.FC = () => {
   useEffect(() => {
 
-    fetch("https://viacep.com.br/ws/48690000/json/")
+    fetch("https://viacep.com.br/ws/48680000/json/")
       .then(res => res.json())
       .then(data => {
         console.log(data);
