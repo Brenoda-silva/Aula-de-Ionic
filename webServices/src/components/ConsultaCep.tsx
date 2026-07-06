@@ -11,18 +11,19 @@ const ConsultaCep: React.FC = () => {
 
 
     async function handleConsultarCep() {
-
+        
         try {
-        const resposta = await fetch(`https://viacep.com.br/ws/${cep}/json/`)
+            const raw = cep;   
+            const resposta = await fetch(`https://viacep.com.br/ws/${raw}/json/`)
 
-        const data = await resposta.json();
+            const data = await resposta.json();
 
-        setLocalidade(data.localidade)
-        setEstado(data.estado)
-        setCep(data.cep)
-        console.log(data)
-    } catch (erro) {
-        console.error("Cep Invalido")
+            setLocalidade(data.localidade)
+            setEstado(data.estado)
+            setCep(data.cep)
+            console.log(data)
+    } catch (error) {
+        console.error("Cep Invalido", error)
     }
     }
 
