@@ -10,13 +10,13 @@ const ConsultaCep: React.FC = () => {
     const [cep, setCep] = useState("");
     const [loading, setLoading] = useState(false);
 
-  
+
 
     async function handleConsultarCep() {
-        
+
         try {
-            const raw = cep; 
-            setLoading(true)  
+            const raw = cep;
+            setLoading(true)
             const resposta = await fetch(`https://viacep.com.br/ws/${raw}/json/`)
 
             const data = await resposta.json();
@@ -27,23 +27,24 @@ const ConsultaCep: React.FC = () => {
             setEstado(data.estado)
             setCep(data.cep)
             console.log(data)
-    } catch (error) {
-        console.error("Cep Invalido", error)
+        } catch (error) {
+            console.error("Cep Invalido", error)
+            alert('Cep Inválido')
 
-        
-    }finally {
-        setLoading(false)
+        } finally {
+            setLoading(false)
+        }
+
     }
-
-    } 
     return (
         <IonPage>
             <IonContent fullscreen>
                 <label>CEP</label>
                 <IonInput aria-label="CEP" value={cep} onChange={(e) => setCep((e.target as HTMLInputElement).value)}></IonInput>
-                <IonButton onClick={handleConsultarCep} disabled={loading}>{loading? "Buscando Cep..." : "Buscar"}</IonButton>
-
+                <IonButton onClick={handleConsultarCep} disabled={loading}>{loading ? "Buscando Cep..." : "Buscar"} </IonButton>
+                
                 <IonList>
+
                     <IonItem>
                         <IonLabel>CEP: {cep}</IonLabel>
                     </IonItem>
