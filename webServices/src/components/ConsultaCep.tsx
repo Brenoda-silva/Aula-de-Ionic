@@ -1,4 +1,4 @@
-import { IonContent, IonPage, IonInput, IonButton, IonList, IonItem, IonLabel, IonAlert } from '@ionic/react';
+import { IonContent, IonPage, IonInput, IonButton, IonList, IonItem, IonLabel } from '@ionic/react';
 import { useState } from 'react';
 // import './Home.css';
 
