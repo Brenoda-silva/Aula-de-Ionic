@@ -12,7 +12,15 @@ export class ProdutoService {
     //}
 
     async listar() {
-        const res = await fetch(`${this.baseUrl}/produtos`);
+        const res = await fetch(
+            `${this.baseUrl}/produtos`,
+            {
+            headers: {
+                Authorization: "123456"
+            }
+        }
+        );
+        
         return await res.json();
     }
 
