@@ -1,4 +1,4 @@
-import { IonContent, IonPage, IonInput, IonButton, IonList, IonItem, IonLabel } from '@ionic/react';
+import { IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonInput, IonButton, IonList, IonItem, IonLabel } from '@ionic/react';
 import { useState } from 'react';
 // import './Home.css';
 
@@ -37,14 +37,18 @@ const ConsultaCep: React.FC = () => {
 
     }
     return (
-        <IonPage>
-            <IonContent fullscreen>
-                <label>CEP</label>
-                <IonInput aria-label="CEP" value={cep} onChange={(e) => setCep((e.target as HTMLInputElement).value)}></IonInput>
-                <IonButton onClick={handleConsultarCep} disabled={loading}>{loading ? "Buscando Cep..." : "Buscar"} </IonButton>
-                
-                <IonList>
+        <IonCard>
+            <IonCardHeader>
+                <IonCardTitle>Consulta de CEP</IonCardTitle>
+            </IonCardHeader>
+            <IonCardContent>
+                <IonLabel position="stacked">CEP</IonLabel>
+                <IonInput aria-label="CEP" value={cep} onIonChange={(e) => setCep((e.target as HTMLInputElement).value)}></IonInput>
+                <IonButton expand="block" onClick={handleConsultarCep} disabled={loading}>
+                    {loading ? "Buscando CEP..." : "Buscar"}
+                </IonButton>
 
+                <IonList>
                     <IonItem>
                         <IonLabel>CEP: {cep}</IonLabel>
                     </IonItem>
@@ -55,8 +59,8 @@ const ConsultaCep: React.FC = () => {
                         <IonLabel>Estado: {estado}</IonLabel>
                     </IonItem>
                 </IonList>
-            </IonContent>
-        </IonPage>
+            </IonCardContent>
+        </IonCard>
     );
 };
 
